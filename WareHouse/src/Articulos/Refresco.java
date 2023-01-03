@@ -50,6 +50,18 @@ public class Refresco extends Articulo {
 		this.cantidadAzucar = cantidadAzucar;
 	}
 	
+	public void visualizarPropiedades() {
+		System.out.println(this.toString());
+	}
+	
+	public boolean esSaludable() {
+		boolean saludable=false;
+		if(cantidadAzucar<20) {
+			saludable=true;
+		}
+		return saludable;
+	}
+	
 	
 	
 	
