@@ -78,7 +78,7 @@ public class Refresco extends Articulo {
 	@Override
 	public double precioTotal() {
 		double precioTotal=0.0;
-		precioTotal=getStock()*getPrecio();
+		precioTotal=this.getStock()*this.getPrecio();
 		return precioTotal;
 	}
 	
