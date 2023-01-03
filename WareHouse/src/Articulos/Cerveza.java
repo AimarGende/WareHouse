@@ -64,6 +64,26 @@ public class Cerveza extends Articulo implements Alcoholico {
 		return precioTotal;
 	}
 	
+	@Override
+	public boolean esFuerte() {
+		boolean fuerte=false;
+		if(this.gradosAlcohol>=7){
+			fuerte=true;
+		}
+		return fuerte;
+	}
+	
+	@Override
+	public double calcularTasa() {
+		double tasa;
+		if(this.esFuerte()) {
+			tasa=TASA_BEBIDAS_FUERTES;
+		}
+		else {
+			tasa=TASA_BEBIDAS_SUABES;
+		}
+		return 0.0;
+	}
 
 	
 	
