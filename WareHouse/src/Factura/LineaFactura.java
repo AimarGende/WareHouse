@@ -14,7 +14,35 @@ public class LineaFactura {
 	public LineaFactura() {
 		
 	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public Articulo getArticulo() {
+		return articulo;
+	}
+
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 	
-	
+	public double precioTotal(){
+		double precioTotal=0.0;
+		precioTotal=cantidad*articulo.getPrecio();
+		return precioTotal;
+	}
 	
 }
