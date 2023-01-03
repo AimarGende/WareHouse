@@ -41,8 +41,29 @@ public class Cerveza extends Articulo {
 		this.gradosAlcohol = gradosAlcohol;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Cerveza: origen=" + origen + ", cereales=" + cereales + ", gradosAlcohol=" + gradosAlcohol +", "+super.toString();
+	}
 
+	@Override
+	public void visualizarArticulo() {
+		System.out.println(super.toString());
+		
+	}
+
+	@Override
+	public boolean saludable() {
+		return false;
+	}
+
+	@Override
+	public double precioTotal() {
+		double precioTotal=0.0;
+		precioTotal=this.getStock()*this.getPrecio();
+		return precioTotal;
+	}
+	
 
 	
 	
