@@ -58,10 +58,10 @@ public class Cerveza extends Articulo implements Alcoholico {
 	}
 
 	@Override
-	public double precioTotal() {
+	public void precioTotal() {
 		double precioTotal=0.0;
 		precioTotal=this.getStock()*this.getPrecio();
-		return precioTotal;
+		System.out.println("El precio total del stock dde cerveza es el siguiente: "+ precioTotal);
 	}
 	
 	@Override
