@@ -1,7 +1,7 @@
 package Articulos;
 
 public abstract class Articulo {
-	private String code;
+	private String codigo;
 	private String nombre;
 	private String marca;
 	private int capacidadBotella;
@@ -9,7 +9,7 @@ public abstract class Articulo {
 	private int stock;
 	
 	public Articulo(String code, String nombre, String marca, int capacidadBotella, double precio, int stock) {
-		this.code = code;
+		this.codigo = code;
 		this.nombre = nombre;
 		this.marca = marca;
 		this.capacidadBotella = capacidadBotella;
@@ -22,11 +22,11 @@ public abstract class Articulo {
 	}
 
 	public String getCode() {
-		return code;
+		return codigo;
 	}
 
 	public void setCode(String code) {
-		this.code = code;
+		this.codigo = code;
 	}
 
 	public String getNombre() {
