@@ -1,6 +1,6 @@
 package Articulos;
 
-public class Vino extends Articulo {
+public class Vino extends Articulo implements Alcoholico {
 	private String color;
 	private String origen;
 	private int anio;
