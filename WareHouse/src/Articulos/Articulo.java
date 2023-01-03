@@ -72,10 +72,14 @@ public abstract class Articulo {
 	public void incrementarStock(int cantidad) {
 		this.stock=this.stock+cantidad;
 	}
+	
 	public void disminuirStock(int cantidad) {
 		this.stock=this.stock-cantidad;
 	}
 	
+	public abstract void visualizarArticulo();
+	public abstract boolean saludable();
+	public abstract void precioTotal();
 	
 	
 	
