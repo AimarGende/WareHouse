@@ -74,7 +74,12 @@ public abstract class Articulo {
 	}
 	
 	public void disminuirStock(int cantidad) {
-		this.stock=this.stock-cantidad;
+		if(this.stock<cantidad || this.stock==0) {
+			System.out.println("No hay suficiente stock");
+		}
+		else {
+			this.stock=this.stock-cantidad;
+		}
 	}
 	
 	public abstract void visualizarArticulo();
