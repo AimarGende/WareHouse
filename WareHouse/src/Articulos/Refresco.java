@@ -51,15 +51,35 @@ public class Refresco extends Articulo {
 	}
 	
 	public void visualizarPropiedades() {
-		System.out.println(this.toString());
+		System.out.println("Sabor: "+sabor+", Zumo: "+zumo+", Gaseoso: "+gaseoso+", Cantidad de azucar: "+cantidadAzucar);
 	}
 	
-	public boolean esSaludable() {
+
+	@Override
+	public String toString() {
+		return "Refresco: sabor=" + sabor + ", zumo=" + zumo + ", gaseoso=" + gaseoso + ", cantidadAzucar="
+				+ cantidadAzucar+","+ super.toString();
+	}
+
+	@Override
+	public void visualizarArticulo() {
+		System.out.println(this.toString());
+	}
+
+	@Override
+	public boolean saludable() {
 		boolean saludable=false;
 		if(cantidadAzucar<20) {
 			saludable=true;
 		}
 		return saludable;
+	}
+
+	@Override
+	public double precioTotal() {
+		double precioTotal=0.0;
+		precioTotal=getStock()*getPrecio();
+		return precioTotal;
 	}
 	
 	
