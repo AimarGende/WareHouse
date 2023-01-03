@@ -80,6 +80,12 @@ public abstract class Articulo {
 	public abstract void visualizarArticulo();
 	public abstract boolean saludable();
 	public abstract void precioTotal();
+
+	@Override
+	public String toString() {
+		return "codigo=" + codigo + ", nombre=" + nombre + ", marca=" + marca + ", capacidadBotella="
+				+ capacidadBotella + ", precio=" + precio + ", stock=" + stock;
+	}
 	
 	
 	
