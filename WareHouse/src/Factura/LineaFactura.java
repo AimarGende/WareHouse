@@ -45,6 +45,12 @@ public class LineaFactura {
 		return precioTotal;
 	}
 
+
+	public String formatoFichero() {
+		String formato=this.numero+";"+this.articulo.getNombre()+";"+this.cantidad;
+		return formato;
+	}
+	
 	@Override
 	public String toString() {
 		return "LineaFactura: numero=" + numero + ", articulo=" + articulo + ", cantidad=" + cantidad;
