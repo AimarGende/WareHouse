@@ -1,0 +1,8 @@
+Articulo.java:
+
+precioTotal() devuelve un double,
+
+Refresco.java:
+
+Eliminado metodo esSaludable(), es lo mismo que saludable() metodo abstracto de Articulo.java que Refresco.java tiene que implementar
+Asumo que precioTotal() se calcula stock*precio
