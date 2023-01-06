@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-public class Almacen {
+
+import java.util.Iterator;
+public class Almacen implements Comparable<Articulo>{
 	ArrayList<Articulo> articuloList;
 	public Almacen(){
 		articuloList=new ArrayList<Articulo>();
@@ -27,5 +29,112 @@ public class Almacen {
 				articuloList.add(cerv);
 			}
 		}
+		scan.close();
+	}
+	
+	public Articulo elMasCaro() {
+		double precio=0.0;
+		Articulo caro = null;
+		for(Articulo art:articuloList) {
+			if(art.getPrecio()>precio) {
+				precio=art.getPrecio();
+				caro=art;
+			}
+		}
+		return caro;
+	}
+	public double precio(String codigoProducto) {
+		double precio=0.0;
+		Iterator<Articulo> here=articuloList.iterator();
+		boolean encontrado=false;
+		while(here.hasNext()||!encontrado) {
+			Articulo art=(Articulo) here.next();
+			if(art.getCode().equals(codigoProducto)) {
+				precio=art.getPrecio();
+				encontrado=true;
+			}
+			here.next();
+		}
+		return precio;
+	}
+	
+	public boolean hayStock(String codigoProducto) {
+		boolean stock=false;
+		Iterator<Articulo> here=articuloList.iterator();
+		boolean encontrado=false;
+		while(here.hasNext()||!encontrado) {
+			Articulo art=(Articulo) here.next();
+			if(art.getCode().equals(codigoProducto) && art.getStock()>0) {
+				encontrado=true;
+				stock=true;
+			}
+			here.next();
+		}
+		return stock;
+	}
+	
+	public ArrayList<Articulo> stockJusto(int stock){
+		ArrayList<Articulo> stockJusto=new ArrayList<Articulo>();
+		for(Articulo art:articuloList) {
+			if(art.getStock()==stock) {
+				stockJusto.add(art);
+			}
+		}
+		return stockJusto;
+	}
+	
+	public Articulo articulo(String codigoProducto) {
+		boolean encontrado=false;
+		Articulo artic=null;
+		Iterator<Articulo> here=articuloList.iterator();
+		while(here.hasNext()||!encontrado) {
+			Articulo art=(Articulo) here.next();
+			if(art.getCode().equals(codigoProducto)) {
+				encontrado=true;
+				artic=art;
+			}
+			here.next();
+		}
+		return artic;
+	}
+	
+	public boolean disponibilidad(int cantidad, String codigoProducto) {
+		boolean encontrado=false;
+		boolean disponible= false;
+		Iterator<Articulo> here=articuloList.iterator();
+		while(here.hasNext()||!encontrado) {
+			Articulo art=(Articulo) here.next();
+			if(art.getCode().equals(codigoProducto) && art.getStock()>cantidad) {
+				disponible=true;
+				encontrado=true;
+			}
+			here.next();
+		}
+		return disponible;
+	}
+	
+	public ArrayList<Articulo> equivalente(Articulo articulo){
+		ArrayList<Articulo> equivalente=new ArrayList<Articulo>();
+		Double dif;
+		for(Articulo art:articuloList) {
+			if(art.getTipo().equals(articulo.getTipo())){
+				if(art.getPrecio()>articulo.getPrecio()) {
+					dif=art.getPrecio()-articulo.getPrecio();
+				}
+				else {
+					dif=articulo.getPrecio()-art.getPrecio();
+				}
+				if(dif<=0.2 ) {
+					equivalente.add(art);
+				}
+			}
+		}
+		return equivalente;
+	}
+
+	@Override
+	public int compareTo(Articulo o) {
+		
+		return 0;
 	}
 }
