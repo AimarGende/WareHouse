@@ -2,3 +2,9 @@ Refresco.java:
 
 Eliminado metodo esSaludable(), es lo mismo que saludable() metodo abstracto de Articulo.java que Refresco.java tiene que implementar
 Asumo que precioTotal() se calcula stock*precio
+
+En todos:
+
+Articulo.java:
+
+Añadido el atributo String tipo para distinguir cada articulo al cargarlo del fichero
