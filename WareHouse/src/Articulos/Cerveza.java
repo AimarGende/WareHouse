@@ -5,9 +5,9 @@ public class Cerveza extends Articulo implements Alcoholico {
 	private String cereales;
 	private double gradosAlcohol;
 	
-	public Cerveza(String code, String nombre, String marca, int capacidadBotella, double precio, int stock,
+	public Cerveza(String code, String nombre,String tipo, String marca, int capacidadBotella, double precio, int stock,
 			String origen, String cereales, double gradosAlcohol) {
-		super(code, nombre, marca, capacidadBotella, precio, stock);
+		super(code, nombre, tipo, marca, capacidadBotella, precio, stock);
 		this.origen = origen;
 		this.cereales = cereales;
 		this.gradosAlcohol = gradosAlcohol;

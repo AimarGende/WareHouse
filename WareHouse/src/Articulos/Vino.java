@@ -7,9 +7,9 @@ public class Vino extends Articulo implements Alcoholico {
 	private String tipoDeUva;
 	private double gradosAlcohol;
 	
-	public Vino(String code, String nombre, String marca, int capacidadBotella, double precio, int stock, String color,
+	public Vino(String code, String nombre,String tipo, String marca, int capacidadBotella, double precio, int stock, String color,
 			String origen, int anio, String tipoDeUva, double gradosAlcohol) {
-		super(code, nombre, marca, capacidadBotella, precio, stock);
+		super(code, nombre, tipo, marca, capacidadBotella, precio, stock);
 		this.color = color;
 		this.origen = origen;
 		this.anio = anio;

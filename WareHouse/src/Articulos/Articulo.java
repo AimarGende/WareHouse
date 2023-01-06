@@ -3,14 +3,16 @@ package Articulos;
 public abstract class Articulo {
 	private String codigo;
 	private String nombre;
+	private String tipo;
 	private String marca;
 	private int capacidadBotella;
 	private double precio;
 	private int stock;
 	
-	public Articulo(String code, String nombre, String marca, int capacidadBotella, double precio, int stock) {
+	public Articulo(String code, String nombre,String tipo, String marca, int capacidadBotella, double precio, int stock) {
 		this.codigo = code;
 		this.nombre = nombre;
+		this.tipo=tipo;
 		this.marca = marca;
 		this.capacidadBotella = capacidadBotella;
 		this.precio = precio;
@@ -35,6 +37,14 @@ public abstract class Articulo {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getMarca() {

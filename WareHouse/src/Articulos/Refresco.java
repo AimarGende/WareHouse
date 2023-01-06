@@ -10,8 +10,8 @@ public class Refresco extends Articulo {
 		super();
 	}
 	
-	public Refresco(String codigo, String nombre, String marca, int capacidadBotella, double precio, int stock, String sabor, boolean zumo, boolean gaseoso, int cantidadAzucar) {
-		super(codigo, nombre, marca, capacidadBotella, precio, stock);
+	public Refresco(String codigo, String nombre,String tipo, String marca, int capacidadBotella, double precio, int stock, String sabor, boolean zumo, boolean gaseoso, int cantidadAzucar) {
+		super(codigo, nombre, tipo, marca, capacidadBotella, precio, stock);
 		this.sabor=sabor;
 		this.zumo=zumo;
 		this.gaseoso=gaseoso;
