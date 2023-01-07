@@ -82,7 +82,20 @@ public class Refresco extends Articulo {
 		System.out.println("El precio total del stock de los refrescos es el siguiente: "+ precioTotal);
 	}
 	
-	
+	@Override
+	public int compareTo(Articulo o) {
+		if(this.getPrecio()<o.getPrecio()) {
+			return -1;
+		}
+		else{
+			if(this.getPrecio()>o.getPrecio()){
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
 	
 	
 }

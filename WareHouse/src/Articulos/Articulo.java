@@ -1,6 +1,6 @@
 package Articulos;
 
-public abstract class Articulo {
+public abstract class Articulo implements Comparable<Articulo> {
 	private String codigo;
 	private String nombre;
 	private String tipo;

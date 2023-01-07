@@ -85,6 +85,21 @@ public class Cerveza extends Articulo implements Alcoholico {
 		return 0.0;
 	}
 
+	@Override
+	public int compareTo(Articulo o) {
+		if(this.getPrecio()<o.getPrecio()) {
+			return -1;
+		}
+		else{
+			if(this.getPrecio()>o.getPrecio()){
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
+	
 	
 	
 }
