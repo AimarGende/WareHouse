@@ -102,6 +102,19 @@ public abstract class Articulo implements Comparable<Articulo> {
 				+ capacidadBotella + ", precio=" + precio + ", stock=" + stock;
 	}
 	
-	
+	@Override
+	public int compareTo(Articulo o) {
+		if(this.getPrecio()<o.getPrecio()) {
+			return -1;
+		}
+		else{
+			if(this.getPrecio()>o.getPrecio()){
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
 	
 }
