@@ -3,10 +3,12 @@ import Articulos.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import java.util.Iterator;
-public class Almacen implements Comparable<Articulo>{
+public class Almacen {
 	ArrayList<Articulo> articuloList;
 	public Almacen(){
 		articuloList=new ArrayList<Articulo>();
@@ -18,13 +20,13 @@ public class Almacen implements Comparable<Articulo>{
 		String[] partes;
 		while(scan.hasNextLine()) {
 			partes=scan.nextLine().split(";");
-			if(partes[2].equals("refresco")) {
+			if(partes[2].toLowerCase().equals("refresco")) {
 				Refresco refres=new Refresco(partes[0], partes[1], partes[2], partes[3],Integer.parseInt(partes[4]), Double.parseDouble(partes[5]), Integer.parseInt(partes[6]), partes[7], Boolean.parseBoolean(partes[8]), Boolean.parseBoolean(partes[9]),Integer.parseInt(partes[10]));
 				articuloList.add(refres);
-			}else if(partes[2].equals("vino")) {
+			}else if(partes[2].toLowerCase().equals("vino")) {
 				Vino vin=new Vino(partes[0], partes[1], partes[2], partes[3],Integer.parseInt(partes[4]), Double.parseDouble(partes[5]), Integer.parseInt(partes[6]), partes[7], partes[8], Integer.parseInt(partes[9]), partes[10], Double.parseDouble(partes[11]));
 				articuloList.add(vin);
-			}else if(partes[2].equals("cerveza")){
+			}else if(partes[2].toLowerCase().equals("cerveza")){
 				Cerveza cerv=new Cerveza(partes[0], partes[1], partes[2], partes[3],Integer.parseInt(partes[4]), Double.parseDouble(partes[5]), Integer.parseInt(partes[6]), partes[7], partes[8], Double.parseDouble(partes[9]));
 				articuloList.add(cerv);
 			}
@@ -131,10 +133,35 @@ public class Almacen implements Comparable<Articulo>{
 		}
 		return equivalente;
 	}
+	
+	public ArrayList<Articulo> ordenarPorPrecio(String orden){
+		if(orden.equals("d")) {
+			Collections.sort(articuloList);
+		}
+		else if(orden.equals("a")){
+			Comparator <Articulo> comparador= Collections.reverseOrder();
+			Collections.sort(articuloList, comparador);
+		}
+		return articuloList;	
+	}
 
-	@Override
-	public int compareTo(Articulo o) {
+	public void ordenarPorStock(String orden) {
+		ArrayList<Articulo> articulosOrdenados = articuloList;
 		
-		return 0;
+		if (orden.equals("descendente")) {
+			articulosOrdenados.sort((arg0, arg1) -> arg1.getStock() - arg0.getStock());
+		}else {
+			articulosOrdenados.sort((arg0, arg1) -> arg0.getStock() - arg1.getStock());
+		}
+		
+		for (Articulo articulo : articulosOrdenados) {
+			if (articulo instanceof Refresco) {
+				((Refresco) articulo).visualizarArticulo();
+			}else if (articulo instanceof Cerveza) {
+				((Cerveza) articulo).visualizarArticulo();
+			}else if (articulo instanceof Vino) {
+				((Vino) articulo).visualizarArticulo();
+			}
+		}
 	}
 }
