@@ -117,4 +117,5 @@ public abstract class Articulo implements Comparable<Articulo> {
 		}
 	}
 	
+	
 }

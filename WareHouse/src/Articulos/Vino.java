@@ -86,7 +86,7 @@ public class Vino extends Articulo implements Alcoholico {
 	public void precioTotal() {
 		double precioTotal=0.0;
 		precioTotal=this.getPrecio()+(this.getPrecio()*21/100)+calcularTasa();
-		System.out.println("El precio total del stock dde cerveza es el siguiente: "+ precioTotal);
+		System.out.println("El precio total del producto es el siguiente: "+ precioTotal);
 	}
 	
 	@Override
