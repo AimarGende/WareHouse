@@ -85,8 +85,8 @@ public class Vino extends Articulo implements Alcoholico {
 	@Override
 	public void precioTotal() {
 		double precioTotal=0.0;
-		precioTotal=this.getStock()*this.getPrecio();
-		System.out.println("El precio total del stock de vinos es el siguiente: "+ precioTotal);
+		precioTotal=this.getPrecio()+(this.getPrecio()*21/100)+calcularTasa();
+		System.out.println("El precio total del stock dde cerveza es el siguiente: "+ precioTotal);
 	}
 	
 	@Override
@@ -102,12 +102,13 @@ public class Vino extends Articulo implements Alcoholico {
 	public double calcularTasa() {
 		double tasa;
 		if(this.esFuerte()) {
-			tasa=TASA_BEBIDAS_FUERTES;
+			tasa=(this.getCapacidadBotella()*TASA_BEBIDAS_FUERTES)/10000;
 		}
 		else {
-			tasa=TASA_BEBIDAS_SUABES;
+			tasa=(this.getCapacidadBotella()*TASA_BEBIDAS_SUABES)/10000;
 		}
-		return 0.0;
+		
+		return tasa;
 	}
 	
 

@@ -78,7 +78,7 @@ public class Refresco extends Articulo {
 	@Override
 	public void precioTotal() {
 		double precioTotal=0.0;
-		precioTotal=this.getStock()*this.getPrecio();
+		precioTotal=this.getPrecio()+(this.getPrecio()*21/100);
 		System.out.println("El precio total del stock de los refrescos es el siguiente: "+ precioTotal);
 	}
 	
