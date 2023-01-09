@@ -71,7 +71,7 @@ public class Factura {
 	
 	public void addLinea(LineaFactura linea) {
 		boolean esta=false;
-		Iterator here=lineaList.iterator();
+		Iterator<LineaFactura> here=lineaList.iterator();
 		while(here.hasNext() && !esta) {
 			LineaFactura facts=(LineaFactura) here.next();
 			if(facts.equals(linea)) {
@@ -117,7 +117,7 @@ public class Factura {
 	public void guardarEnFichero()throws IOException {
 		String fichero=numero+"_"+fecha+"_factura.txt";
 		PrintWriter write=new PrintWriter("Facturas/"+fichero);
-		write.println("Factura: \n IVA: "+this.IVA+", numero: "+this.numero+", nombre de empresa: "+this.nombreEmpresa+", fecha: "+this.fecha+", concepto: "+this.concepto);
+		write.println("Factura: \n IVA: "+IVA+", numero: "+this.numero+", nombre de empresa: "+this.nombreEmpresa+", fecha: "+this.fecha+", concepto: "+this.concepto);
 		for(LineaFactura fact:lineaList) {
 			write.println(fact.formatoFichero());
 		}
