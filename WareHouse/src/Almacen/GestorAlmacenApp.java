@@ -109,18 +109,21 @@ public class GestorAlmacenApp {
 			if(nombre.equals(art.getNombre())) {
 				encontrado=true;
 				if(art instanceof Refresco) {
-					art=ref;
+					ref=(Refresco)art;
+					linea.setArticulo(ref);
 				}
 				else if(art instanceof Vino) {
-					art=vin;
+					vin=(Vino)art;
+					linea.setArticulo(vin);
 				}
 				else if(art instanceof Cerveza) {
-					art=cer;
+					cer=(Cerveza)art;
+					linea.setArticulo(cer);
 				}
 			}
 			here.next();
 		}
-		linea.setArticulo(art);
+		
 		if(!encontrado) {
 			System.out.println("No se ha encontrado el articulo en el almacen");
 		}
