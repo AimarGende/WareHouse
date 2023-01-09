@@ -109,13 +109,13 @@ public class GestorAlmacenApp {
 			if(nombre.equals(art.getNombre())) {
 				encontrado=true;
 				if(art instanceof Refresco) {
-					art=(Articulo)ref;
+					art=ref;
 				}
 				else if(art instanceof Vino) {
-					art=(Articulo)vin;
+					art=vin;
 				}
 				else if(art instanceof Cerveza) {
-					art=(Articulo)cer;
+					art=cer;
 				}
 			}
 			here.next();
