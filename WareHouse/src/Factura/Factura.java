@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class Factura {
+	
 	public final static int IVA=21;
 	private int numero;
 	private String nombreEmpresa;

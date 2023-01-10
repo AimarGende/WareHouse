@@ -7,7 +7,15 @@ public class LineaFactura {
 	
 	public LineaFactura(int numero, Articulo articulo, int cantidad) {
 		this.numero = numero;
-		this.articulo = articulo;
+		if(articulo instanceof Refresco) {
+			this.articulo = (Refresco)articulo;
+		}
+		else if(articulo instanceof Cerveza) {
+			this.articulo = (Cerveza)articulo;
+		}
+		else if(articulo instanceof Vino) {
+			this.articulo = (Vino)articulo;
+		}
 		this.cantidad = cantidad;
 	}
 
@@ -28,7 +36,16 @@ public class LineaFactura {
 	}
 
 	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
+		if(articulo instanceof Refresco) {
+			this.articulo = (Refresco)articulo;
+		}
+		else if(articulo instanceof Cerveza) {
+			this.articulo = (Cerveza)articulo;
+		}
+		else if(articulo instanceof Vino) {
+			this.articulo = (Vino)articulo;
+		}
+		
 	}
 
 	public int getCantidad() {
