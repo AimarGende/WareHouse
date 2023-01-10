@@ -3,8 +3,6 @@ import Articulos.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 import java.util.Iterator;
@@ -75,10 +73,10 @@ public class Almacen {
 		return stock;
 	}
 	
-	public ArrayList<Articulo> stockJusto(int stock){
+	public ArrayList<Articulo> stockJusto(){
 		ArrayList<Articulo> stockJusto=new ArrayList<Articulo>();
 		for(Articulo art:articuloList) {
-			if(art.getStock()==stock) {
+			if(art.getStock()<10) {
 				stockJusto.add(art);
 			}
 		}
@@ -135,33 +133,13 @@ public class Almacen {
 	}
 	
 	public ArrayList<Articulo> ordenarPorPrecio(String orden){
-		if(orden.equals("d")) {
-			Collections.sort(articuloList);
-		}
-		else if(orden.equals("a")){
-			Comparator <Articulo> comparador= Collections.reverseOrder();
-			Collections.sort(articuloList, comparador);
-		}
-		return articuloList;	
+		ArticuloComparatorPrecio comparator=new ArticuloComparatorPrecio();	
+		articuloList.sort(comparator);
+		return articuloList;
 	}
 
 	public void ordenarPorStock(String orden) {
-		ArrayList<Articulo> articulosOrdenados = articuloList;
-		
-		if (orden.equals("descendente")) {
-			articulosOrdenados.sort((arg0, arg1) -> arg1.getStock() - arg0.getStock());
-		}else {
-			articulosOrdenados.sort((arg0, arg1) -> arg0.getStock() - arg1.getStock());
-		}
-		
-		for (Articulo articulo : articulosOrdenados) {
-			if (articulo instanceof Refresco) {
-				((Refresco) articulo).visualizarArticulo();
-			}else if (articulo instanceof Cerveza) {
-				((Cerveza) articulo).visualizarArticulo();
-			}else if (articulo instanceof Vino) {
-				((Vino) articulo).visualizarArticulo();
-			}
-		}
+		ArticuloComparadorStock comparator=new ArticuloComparadorStock();
+		articuloList.sort(comparator);
 	}
 }
