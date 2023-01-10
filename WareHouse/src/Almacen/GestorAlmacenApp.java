@@ -1,5 +1,4 @@
 package Almacen;
-import Almacen.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +22,8 @@ public class GestorAlmacenApp {
 		int opcion_menu=0;
 		
 		almacen.cargarDatos();
+		facturaInfo(factura, sc);
+		
 		do {
 			System.out.println("----------MENU----------");
 			System.out.println(REALIZAR_VENTA+". realizar venta");
@@ -33,18 +34,22 @@ public class GestorAlmacenApp {
 			System.out.println(SALIR+". salir");
 			System.out.println("Escoge la opcion que quieras:");
 			opcion_menu=Integer.parseInt(sc.nextLine());
+			
 			switch(opcion_menu) {
 				case REALIZAR_VENTA:
-					realizarVenta(factura,almacen);
 					System.out.println("Mostrando factura...");
 					factura.mostrarEnPantalla();
 					System.out.println("Guardando factura...");
 					factura.guardarEnFichero();
+					System.out.println("Se ha guardado la factura. Muchas gracias por su compra");
 					break;
 				case REALIZAR_COMPRA:
-					
+					LineaFactura linea=new LineaFactura();
+					linea=crearLinea(sc,almacen);
+					factura.addLinea(linea);
 					break;
 				case VER_ARTICULOS_SALUDABLES:
+					System.out.println("Articulos saludables:");
 					for(Articulo art: almacen.articuloList) {
 						if(art.saludable()) {
 							System.out.println(art);
@@ -52,7 +57,8 @@ public class GestorAlmacenApp {
 					}
 					break;
 				case VER_ARTICULO_MAS_CARO:
-					almacen.elMasCaro();
+					
+					System.out.println("El articulo mas caro es "+ almacen.elMasCaro());
 					break;
 				case VER_ARTICULO_CON_MENOS_STOCK:
 					Articulo min=almacen.articuloList.get(0);
@@ -61,7 +67,7 @@ public class GestorAlmacenApp {
 							min=art;
 						}
 					}
-					System.out.println(min);
+					System.out.println("El articulo con menos stock es "+min);
 					break;
 				case SALIR:
 					break;
@@ -72,23 +78,7 @@ public class GestorAlmacenApp {
 		sc.close();
 	}
 
-	private static void realizarVenta(Factura fact,Almacen almacen) throws ParseException {
-		Scanner sc=new Scanner(System.in);
-		String opcion="";
-		SimpleDateFormat fecha= new SimpleDateFormat("dd-MM-yyyy");
-		System.out.println("Introduce el numero de la factura:");
-		fact.setNumero(Integer.parseInt(sc.nextLine()));
-		System.out.println("Introduce la fecha de hoy:");
-		fact.setFecha(fecha.parse(sc.nextLine()));
-		System.out.println("Introduce el concepto de la factura:");
-		fact.setConcepto(sc.nextLine());
-		do {
-			LineaFactura linea=crearLinea(sc, almacen);
-			fact.addLinea(linea);
-			System.out.println("Introduce S si quiere comprar un articulo o N si quiere dejar de comprar");
-			opcion=sc.nextLine();
-		}while(!opcion.equals("N"));
-	}
+
 	
 	private static LineaFactura crearLinea(Scanner sc,Almacen almacen) {
 		LineaFactura linea=new LineaFactura();
@@ -100,17 +90,17 @@ public class GestorAlmacenApp {
 		Vino vin=new Vino();
 		Refresco ref=new Refresco();
 		Iterator<Articulo> here=almacen.articuloList.iterator();
-		System.out.println("Introduce el numero de la linea:");
-		linea.setNumero(Integer.parseInt(sc.nextLine()));
+
 		System.out.println("Introduce el nombre del articulo que quieres comprar");
 		nombre=sc.nextLine();
+			
 		while(here.hasNext()&& !encontrado) {
 			art=(Articulo) here.next();
 			if(nombre.equals(art.getNombre())) {
-				encontrado=true;
+			encontrado=true;
 				if(art instanceof Refresco) {
-					ref=(Refresco)art;
-					linea.setArticulo(ref);
+						ref=(Refresco)art;
+						linea.setArticulo(ref);
 				}
 				else if(art instanceof Vino) {
 					vin=(Vino)art;
@@ -123,25 +113,37 @@ public class GestorAlmacenApp {
 			}
 			here.next();
 		}
-		
+
+
 		if(!encontrado) {
 			System.out.println("No se ha encontrado el articulo en el almacen");
+		}else {
+			System.out.println("Introduce la cantidad del articulo que quieres comprar:");
+			cantidad=Integer.parseInt(sc.nextLine());
+			if(almacen.disponibilidad(cantidad, art.getCode())) {
+				linea.setCantidad(cantidad);
+			}
+			else if(!almacen.disponibilidad(cantidad, art.getCode())) {
+				System.out.println("No hay stock");
+			}
+			else if(art.getStock()>0 && art.getStock()<cantidad){
+				linea.setCantidad(art.getStock());
+				System.out.println("No hay suficiente cantidad, pero le mandaremos el stock que nos queda");
+				art.setStock(0);
+			}
 		}
-		System.out.println("Introduce la cantidad del articulo que quieres comprar:");
-		cantidad=Integer.parseInt(sc.nextLine());
-		if(almacen.disponibilidad(cantidad, art.getCode())) {
-			linea.setCantidad(cantidad);
-		}
-		else if(!almacen.disponibilidad(cantidad, art.getCode())) {
-			System.out.println("No hay stock");
-		}
-		else if(art.getStock()>0 && art.getStock()<cantidad){
-			linea.setCantidad(art.getStock());
-			System.out.println("No hay suficiente cantidad");
-			art.setStock(0);
-		}
+		
 		return linea;
 	}
-
+	
+	private static void facturaInfo(Factura fact, Scanner sc) throws ParseException {
+		SimpleDateFormat fecha= new SimpleDateFormat("dd-MM-yyyy");
+		System.out.println("Introduce el numero de la factura:");
+		fact.setNumero(Integer.parseInt(sc.nextLine()));
+		System.out.println("Introduce la fecha de hoy:");
+		fact.setFecha(fecha.parse(sc.nextLine()));
+		System.out.println("Introduce el concepto de la factura:");
+		fact.setConcepto(sc.nextLine());
+	}
 
 }
