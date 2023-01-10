@@ -2,14 +2,15 @@ package Articulos;
 
 public class Cerveza extends Articulo implements Alcoholico {
 	private String origen;
-	private String cereales;
+	private String cereales[]=new String[2];
 	private double gradosAlcohol;
 	
 	public Cerveza(String code, String nombre,String tipo, String marca, int capacidadBotella, double precio, int stock,
 			String origen, String cereales, double gradosAlcohol) {
 		super(code, nombre, tipo, marca, capacidadBotella, precio, stock);
+		String partes[]=cereales.split(" y ");
 		this.origen = origen;
-		this.cereales = cereales;
+		this.cereales=partes;
 		this.gradosAlcohol = gradosAlcohol;
 	}
 
@@ -25,11 +26,12 @@ public class Cerveza extends Articulo implements Alcoholico {
 		this.origen = origen;
 	}
 
-	public String getCereales() {
+	public String[] getCereales() {
 		return cereales;
 	}
 
-	public void setCereales(String cereales) {
+	public void setCereales(String[] cereales) {
+		
 		this.cereales = cereales;
 	}
 
@@ -54,7 +56,13 @@ public class Cerveza extends Articulo implements Alcoholico {
 
 	@Override
 	public boolean saludable() {
-		return false;
+		boolean saludable=false;
+		for(int i=0;i<cereales.length;i++) {
+			if(cereales[i].equals("lúpulo")){
+				saludable=true;
+			}
+		}
+		return saludable;
 	}
 
 	@Override
