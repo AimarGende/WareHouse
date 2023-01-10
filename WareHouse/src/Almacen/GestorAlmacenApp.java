@@ -140,6 +140,8 @@ public class GestorAlmacenApp {
 		SimpleDateFormat fecha= new SimpleDateFormat("dd-MM-yyyy");
 		System.out.println("Introduce el numero de la factura:");
 		fact.setNumero(Integer.parseInt(sc.nextLine()));
+		System.out.println("Introduce el nombre de la empresa:");
+		fact.setNombreEmpresa(sc.nextLine());
 		System.out.println("Introduce la fecha de hoy:");
 		fact.setFecha(fecha.parse(sc.nextLine()));
 		System.out.println("Introduce el concepto de la factura:");
