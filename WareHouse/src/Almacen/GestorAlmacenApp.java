@@ -135,7 +135,8 @@ public class GestorAlmacenApp {
 		nombre=sc.nextLine();
 		while(here.hasNext()&& !encontrado) {
 			art=(Articulo) here.next();
-			if(nombre.equals(art.getNombre())) {
+			System.out.println(art);
+			if(nombre.toLowerCase().equals(art.getNombre().toLowerCase())) {
 				encontrado=true;
 				System.out.println(nombre.equals(art.getNombre()));
 				if(art instanceof Refresco) {

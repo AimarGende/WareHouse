@@ -26,8 +26,10 @@ public class Cerveza extends Articulo implements Alcoholico {
 		this.origen = origen;
 	}
 
-	public String[] getCereales() {
-		return cereales;
+	public String getCereales() {
+		String cereal;
+		cereal=cereales[0]+" y "+cereales[1];
+		return cereal;
 	}
 
 	public void setCereales(String[] cereales) {
@@ -45,7 +47,7 @@ public class Cerveza extends Articulo implements Alcoholico {
 	
 	@Override
 	public String toString() {
-		return "Cerveza: origen=" + origen + ", cereales=" + cereales + ", gradosAlcohol=" + gradosAlcohol +", "+super.toString();
+		return "Cerveza: origen=" + origen + ", cereales=" + cereales[0] + " y " + cereales[1] + ", gradosAlcohol=" + gradosAlcohol +", "+super.toString();
 	}
 
 	@Override
