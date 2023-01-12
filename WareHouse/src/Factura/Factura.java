@@ -2,6 +2,7 @@ package Factura;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -79,7 +80,10 @@ public class Factura {
 				System.out.println("La linea esta ya en la lista");
 				esta=true;
 			}
-			here.next();
+			if(here.hasNext()) {
+				here.next();
+			}
+			
 		}
 		if(!esta){
 			lineaList.add(linea);
@@ -108,17 +112,24 @@ public class Factura {
 	}
 	
 	public void mostrarEnPantalla() {
-		System.out.println(this.toString());
+		System.out.println(this.numero);
+		System.out.println(this.nombreEmpresa);
+		System.out.println(this.fecha);
+		System.out.println(this.concepto);
 		for(LineaFactura linea:lineaList) {
 			System.out.println(linea.toString());
 		}
 		
+		
+		
+		
 	}
 	
 	public void guardarEnFichero()throws IOException {
-		String fichero=numero+"_"+fecha+"_factura.txt";
+		SimpleDateFormat date=new SimpleDateFormat("dd-MM-yyyy");
+		String fichero=numero+"_"+date.format(fecha)+"_factura.txt";
 		PrintWriter write=new PrintWriter("Facturas/"+fichero);
-		write.println("Factura: \n IVA: "+IVA+", numero: "+this.numero+", nombre de empresa: "+this.nombreEmpresa+", fecha: "+this.fecha+", concepto: "+this.concepto);
+		write.println("Factura: \n IVA: "+IVA+", numero: "+this.numero+", nombre de empresa: "+this.nombreEmpresa+", fecha: "+date.format(fecha)+", concepto: "+this.concepto);
 		for(LineaFactura fact:lineaList) {
 			write.println(fact.formatoFichero());
 		}
