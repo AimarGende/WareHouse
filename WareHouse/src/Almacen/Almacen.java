@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.Iterator;
 public class Almacen {
 	ArrayList<Articulo> articuloList;
+	
 	public Almacen(){
 		articuloList=new ArrayList<Articulo>();
 	}
@@ -110,13 +111,15 @@ public class Almacen {
 		boolean encontrado=false;
 		boolean disponible= false;
 		Iterator<Articulo> here=articuloList.iterator();
-		while(here.hasNext()||!encontrado) {
+		while(here.hasNext()&&!encontrado) {
 			Articulo art=(Articulo) here.next();
 			if(art.getCode().equals(codigoProducto) && art.getStock()>cantidad) {
 				disponible=true;
 				encontrado=true;
 			}
-			here.next();
+			if(here.hasNext()) {
+				here.next();
+			}
 		}
 		return disponible;
 	}
