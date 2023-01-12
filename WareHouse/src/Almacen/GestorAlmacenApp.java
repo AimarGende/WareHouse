@@ -2,6 +2,7 @@ package Almacen;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import Factura.*;
@@ -20,9 +21,12 @@ public class GestorAlmacenApp {
 		Almacen almacen=new Almacen();
 		Factura factura=new Factura();
 		int opcion_menu=0;
+		int num=0;
+		String code="";
+		String opcion="";
 		
 		almacen.cargarDatos();
-		facturaInfo(factura, sc);
+		
 		
 		do {
 			System.out.println("----------MENU----------");
@@ -37,16 +41,52 @@ public class GestorAlmacenApp {
 			
 			switch(opcion_menu) {
 				case REALIZAR_VENTA:
+					facturaInfo(factura, sc);
+					int numLinea=1;
+					do {
+						crearLinea(numLinea,factura,sc,almacen);
+						System.out.println("Quiere seguir introduciendo lineas? Introduzca S si quiere seguir y N si no");
+						opcion=sc.nextLine();
+						numLinea++;
+					}while(!opcion.toUpperCase().equals("N"));
 					System.out.println("Mostrando factura...");
 					factura.mostrarEnPantalla();
-					System.out.println("Guardando factura...");
-					factura.guardarEnFichero();
-					System.out.println("Se ha guardado la factura. Muchas gracias por su compra");
+					System.out.println("Quiere guardar la factura?");
+					opcion=sc.nextLine();
+					if(opcion.toLowerCase().equals("si")) {
+						System.out.println("Guardando factura...");
+						factura.guardarEnFichero();
+						System.out.println("Se ha guardado la factura. Muchas gracias por su compra");
+					}
+					else {
+						System.out.println("Muchas gracias por su compra");
+					}
+					
 					break;
 				case REALIZAR_COMPRA:
-					LineaFactura linea=new LineaFactura();
-					linea=crearLinea(sc,almacen);
-					factura.addLinea(linea);
+					ArrayList<Articulo> compraList=new ArrayList<Articulo>();
+					System.out.println("Introduce el codigo del articulo:");
+					code=sc.nextLine();
+					System.out.println("Introduce cuanto quieres incrementar el stock:");
+					num=Integer.parseInt(sc.nextLine());
+					for(Articulo art:almacen.articuloList) {
+						if(art.getCode().equals(code)) {
+							art.incrementarStock(num);
+							compraList.add(art);
+						}
+					}
+					almacen.articuloList.addAll(compraList);
+					
+					//Revisar Iterator Concurrent modification exception
+//					while(here.hasNext() && !encontrado) {
+//						Articulo art = (Articulo) here.next();
+//						if(art.getCode().equals(code)) {
+//							art.incrementarStock(num);
+//							compraList.add(art);
+//						}
+//						here.next();
+//					}
+//					almacen.articuloList.addAll(compraList);
 					break;
 				case VER_ARTICULOS_SALUDABLES:
 					System.out.println("Articulos saludables:");
@@ -57,17 +97,16 @@ public class GestorAlmacenApp {
 					}
 					break;
 				case VER_ARTICULO_MAS_CARO:
-					
 					System.out.println("El articulo mas caro es "+ almacen.elMasCaro());
 					break;
 				case VER_ARTICULO_CON_MENOS_STOCK:
-					Articulo min=almacen.articuloList.get(0);
-					for(Articulo art: almacen.articuloList) {
-						if(art.getStock()<min.getStock()) {
-							min=art;
+					System.out.println("Introduce un numero mayor que 0 para mostrarle los asrticulos que tienen menos stock que ese numero.");
+					num=Integer.parseInt(sc.nextLine());
+					for(Articulo art:almacen.articuloList) {
+						if(art.getStock()<num) {
+							System.out.println(art);
 						}
 					}
-					System.out.println("El articulo con menos stock es "+min);
 					break;
 				case SALIR:
 					break;
@@ -80,7 +119,7 @@ public class GestorAlmacenApp {
 
 
 	
-	private static LineaFactura crearLinea(Scanner sc,Almacen almacen) {
+	private static void crearLinea(int numLinea,Factura fact,Scanner sc,Almacen almacen) {
 		LineaFactura linea=new LineaFactura();
 		boolean encontrado=false;
 		int cantidad=0;
@@ -88,19 +127,20 @@ public class GestorAlmacenApp {
 		String nombre="";
 		Cerveza cer=new Cerveza();
 		Vino vin=new Vino();
+
 		Refresco ref=new Refresco();
 		Iterator<Articulo> here=almacen.articuloList.iterator();
-
+		linea.setNumero(numLinea);
 		System.out.println("Introduce el nombre del articulo que quieres comprar");
 		nombre=sc.nextLine();
-			
 		while(here.hasNext()&& !encontrado) {
 			art=(Articulo) here.next();
 			if(nombre.equals(art.getNombre())) {
-			encontrado=true;
+				encontrado=true;
+				System.out.println(nombre.equals(art.getNombre()));
 				if(art instanceof Refresco) {
-						ref=(Refresco)art;
-						linea.setArticulo(ref);
+					ref=(Refresco)art;
+					linea.setArticulo(ref);
 				}
 				else if(art instanceof Vino) {
 					vin=(Vino)art;
@@ -111,10 +151,10 @@ public class GestorAlmacenApp {
 					linea.setArticulo(cer);
 				}
 			}
-			here.next();
+			if(here.hasNext()){
+				here.next();
+			}
 		}
-
-
 		if(!encontrado) {
 			System.out.println("No se ha encontrado el articulo en el almacen");
 		}else {
@@ -122,7 +162,7 @@ public class GestorAlmacenApp {
 			cantidad=Integer.parseInt(sc.nextLine());
 			if(almacen.disponibilidad(cantidad, art.getCode())) {
 				linea.setCantidad(cantidad);
-			}
+				}
 			else if(!almacen.disponibilidad(cantidad, art.getCode())) {
 				System.out.println("No hay stock");
 			}
@@ -132,8 +172,7 @@ public class GestorAlmacenApp {
 				art.setStock(0);
 			}
 		}
-		
-		return linea;
+		fact.addLinea(linea);	
 	}
 	
 	private static void facturaInfo(Factura fact, Scanner sc) throws ParseException {
