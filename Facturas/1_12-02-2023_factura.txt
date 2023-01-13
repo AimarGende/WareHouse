@@ -1,0 +1,3 @@
+Factura: 
+ IVA: 21, numero: 1, nombre de empresa: vewvwewe, fecha: 12-02-2023, concepto: dfwefew
+1;fanta;5
