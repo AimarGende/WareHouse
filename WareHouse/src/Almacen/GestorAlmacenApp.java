@@ -127,10 +127,12 @@ public class GestorAlmacenApp {
 		int cantidad=0;
 		Articulo art=null;
 		String nombre="";
+		
 		Cerveza cer=new Cerveza();
 		Vino vin=new Vino();
-
 		Refresco ref=new Refresco();
+		
+		
 		Iterator<Articulo> here=almacen.articuloList.iterator();
 		linea.setNumero(numLinea);
 		System.out.println("Introduce el nombre del articulo que quieres comprar");
