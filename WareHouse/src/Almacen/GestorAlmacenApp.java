@@ -18,7 +18,7 @@ public class GestorAlmacenApp {
 		
 		Scanner sc=new Scanner(System.in);
 		Almacen almacen=new Almacen();
-		Factura factura=new Factura();
+		
 		int opcion_menu=0;
 		int num=0;
 		String code="";
@@ -40,6 +40,7 @@ public class GestorAlmacenApp {
 			
 			switch(opcion_menu) {
 				case REALIZAR_VENTA:
+					Factura factura=new Factura();
 					facturaInfo(factura, sc);
 					int numLinea=1;
 					do {
@@ -74,6 +75,7 @@ public class GestorAlmacenApp {
 							almacen.articuloList.add(art);
 						}
 					}
+					
 //					Revisar Iterator Concurrent modification exception
 //					while(here.hasNext() && !encontrado) {
 //						Articulo art = (Articulo) here.next();
