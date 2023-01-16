@@ -96,7 +96,7 @@ public class Almacen {
 		boolean encontrado=false;
 		Articulo artic=null;
 		Iterator<Articulo> here=articuloList.iterator();
-		while(here.hasNext()||!encontrado) {
+		while(here.hasNext()&&!encontrado) {
 			Articulo art=(Articulo) here.next();
 			if(art.getCode().equals(codigoProducto)) {
 				encontrado=true;

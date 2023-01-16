@@ -74,8 +74,6 @@ public class GestorAlmacenApp {
 							almacen.articuloList.add(art);
 						}
 					}
-					
-					
 //					Revisar Iterator Concurrent modification exception
 //					while(here.hasNext() && !encontrado) {
 //						Articulo art = (Articulo) here.next();
