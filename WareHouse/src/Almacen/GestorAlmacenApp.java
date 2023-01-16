@@ -2,7 +2,6 @@ package Almacen;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import Factura.*;
@@ -64,29 +63,32 @@ public class GestorAlmacenApp {
 					
 					break;
 				case REALIZAR_COMPRA:
-					ArrayList<Articulo> compraList=new ArrayList<Articulo>();
 					System.out.println("Introduce el codigo del articulo:");
 					code=sc.nextLine();
 					System.out.println("Introduce cuanto quieres incrementar el stock:");
 					num=Integer.parseInt(sc.nextLine());
 					for(Articulo art:almacen.articuloList) {
 						if(art.getCode().equals(code)) {
+							almacen.articuloList.remove(art);
 							art.incrementarStock(num);
-							compraList.add(art);
+							almacen.articuloList.add(art);
 						}
 					}
-					almacen.articuloList.addAll(compraList);
 					
-					//Revisar Iterator Concurrent modification exception
+					
+//					Revisar Iterator Concurrent modification exception
 //					while(here.hasNext() && !encontrado) {
 //						Articulo art = (Articulo) here.next();
 //						if(art.getCode().equals(code)) {
-//							art.incrementarStock(num);
-//							compraList.add(art);
-//						}
+//							if(art.getCode().equals(code)) {
+//								almacen.articuloList.remove(art);
+//								art.incrementarStock(num);
+//								almacen.articuloList.add(art);
+//							}
 //						here.next();
+//						}
 //					}
-//					almacen.articuloList.addAll(compraList);
+					
 					break;
 				case VER_ARTICULOS_SALUDABLES:
 					System.out.println("Articulos saludables:");
